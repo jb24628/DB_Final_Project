@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/header :: header"></head>
+<head>
+<title>Search for Books</title>
+</head>
+
+<body>
+
+	<!-- (Source code only read): adds the navagation menu bar -->
+	<div th:replace="fragments/top-nav ::  navbar">	</div>
+
+
+<h2 style="text-align: center;">Book Search</h2>
+
+<div style="width=60%; margin: auto auto;">
+	<form action="#" th:action="@{/booksearch/search}" method="GET">
+		<div class="form-group row" style="max-width: 100%;  margin: auto auto 0.75rem auto; padding-right: 10px; padding-left: 10px;">
+		
+			<select name="selectedField" class="form-control form-control" style="max-width: 15%; margin: auto auto;">
+				<option value="title" th:selected="${selected[0]}">Title</option>
+				<option value="author" th:selected="${selected[1]}">Author</option>
+				<option value="genre" th:selected="${selected[2]}">Genre</option>
+				<option value="maxLength" th:selected="${selected[3]}">Max Length</option>
+				<option value="publisher" th:selected="${selected[4]}">Publisher</option>
+				<option value="bookid" th:selected="${selected[5]}">Book ID</option>
+			</select>
+		
+		
+			<input type="text" name="searchTerm" th:value="${searchTerm}" class="form-control" placeholder="Key words" style="max-width: 60%; margin: auto auto;">
+		
+			<button type="submit" class="btn btn-dark" style="margin: auto auto;">Search</button>
+		</div>
+	</form>
+</div>
+
+<font color="red"><h1 th:text="${error_msg}" style="text-align: center;"></h1></font>
+
+<div style="padding-top: 50px;">
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Title</th>
+				<th scope="col">Author</th>
+				<th scope="col">Genre</th>
+				<th scope="col">Length</th>
+				<th scope="col">Publisher</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- acts like a for each loop and iterates through all the books -->
+			<tr th:each="book:${books}">
+				<td th:text="${book.bookid}"></td>
+				<td th:text="${book.title}"></td>
+				<td th:text="${book.author}"></td>
+				<td th:text="${book.genre}"></td>
+				<td th:text="${book.length}"></td>
+				<td th:text="${book.publisher}"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+</html>
