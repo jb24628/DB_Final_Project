@@ -95,7 +95,7 @@ public class BookSearchController {
 		}
 		catch (Exception e) {
 			System.out.println(e);
-			model.addAttribute("error_msg", "Query cannot be executed");
+			model.addAttribute("error_msg", "Search failed. Error: " + e);
 		}
 		
 		return "booksearch";

@@ -27,25 +27,25 @@
       </div>
       <div class="modal-body">
         
-        	<div class="form-group" style="display: none;">
-            <label for="recipient-name" class="col-form-label">Id:</label>
-            <input type="text" class="form-control" id="id" name="id" value="0">
+        	<div class="form-group">
+            <label for="recipient-name" class="col-form-label">Id (auto-generated):</label>
+            <input type="text" class="form-control" id="bookid" name="bookid" th:value="${newID}" readonly>
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Last Name:</label>
-            <input type="text" class="form-control" id="last" name="last">
+            <label for="recipient-name" class="col-form-label">Title:</label>
+            <input type="text" class="form-control" id="tite" name="title">
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">First Name:</label>
-            <input type="text" class="form-control" id="first" name="first">
+            <label for="recipient-name" class="col-form-label">Author:</label>
+            <input type="text" class="form-control" id="author" name="author">
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Sex (male/female):</label>
-            <input type="text" class="form-control" id="sex" name="sex">
+            <label for="recipient-name" class="col-form-label">Genre:</label>
+            <input type="text" class="form-control" id="genre" name="genre">
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Date of birth (yyyy-mm-dd):</label>
-            <input type="text" class="form-control" id="dob" name="dob">
+            <label for="recipient-name" class="col-form-label">Length:</label>
+            <input type="text" class="form-control" id="length" name="length">
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Date of death (yyyy-mm-dd):</label>

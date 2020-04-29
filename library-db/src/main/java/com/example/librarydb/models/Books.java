@@ -64,5 +64,9 @@ public class Books {
 	public void setBookid(Integer bookid) {
 		this.bookid = bookid;
 	}
+	
+	public String toString() {
+		return bookid + " " + title + " by " + author;
+	}
 
 }

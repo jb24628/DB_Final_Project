@@ -2,12 +2,17 @@
 <html>
 <head th:replace="fragments/header :: header"> </head>
 <head>
+<script>
+function onload() {
+	document.getElementById("reservetime").value = document.getElementById("reservetime").value.substring(0,14) + "00:00.0";
+}
+</script>
 </head>
-<body>
+<body onload="onload()">
 	<!-- (Source code only read): adds the navagation menu bar -->
 	<div th:replace="fragments/top-nav ::  navbar">	</div>
 
-	<h2 style="text-align: center;">List of Reservationss</h2>
+	<h2 style="text-align: center;">List of Room Reservations</h2>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add New</button>
 
 <!-- Makes a pop up screen to put info in -->
@@ -17,37 +22,34 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Reservations</h5>
+        <h5 class="modal-title" id="exampleModalLabel">New Room Reservation</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         
-        	<div class="form-group" style="display: none;">
-            <label for="recipient-name" class="col-form-label">Id:</label>
-            <input type="text" class="form-control" id="id" name="id" value="0">
+        	<div class="form-group">
+            <label for="recipient-name" class="col-form-label">Reservation Time (YYYY-MM-DD HH:MM:SS.0):</label>
+            <input type="text" class="form-control" id="reservetime" name="reservetime" th:value="${curTime}">
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Last Name:</label>
-            <input type="text" class="form-control" id="last" name="last">
+            <label for="recipient-name" class="col-form-label">Room Number:</label>
+            <input type="text" class="form-control" id="roomno" name="roomno">
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">First Name:</label>
-            <input type="text" class="form-control" id="first" name="first">
+            <label for="recipient-name" class="col-form-label">Reservation ID (auto-generated):</label>
+            <input type="text" class="form-control" id="reservationid" name="reservationid" th:value="${newID}" readonly>
           </div>
+         
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Sex (male/female):</label>
-            <input type="text" class="form-control" id="sex" name="sex">
+            <label for="recipient-name" class="col-form-label">User:</label>
+          	<select name="userid" id="userid" class="form-control form-control">
+				<option th:each="user:${users}" th:value="${user.id}" th:text="${user.toString()}"></option>
+			</select>
+             <!-- <input type="text" class="form-control" id="userid" name="userid">  -->
           </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Date of birth (yyyy-mm-dd):</label>
-            <input type="text" class="form-control" id="dob" name="dob">
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Date of death (yyyy-mm-dd):</label>
-            <input type="text" class="form-control" id="dod" name="dod">
-          </div>
+          
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -61,23 +63,20 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col">Id</th>
-				<th scope="col">Last</th>
-				<th scope="col">First</th>
-				<th scope="col">Sex</th>
-				<th scope="col">Date of Birth</th>
-				<th scope="col">Date of Death</th>
+				<th scope="col">Reservation Time</th>
+				<th scope="col">Room No.</th>
+				<th scope="col">Reservation ID</th>
+				<th scope="col">User ID</th>
 			</tr>
 		</thead>
 		<tbody>
-			<!-- acts like a for each loop and iterates through all the reservationss -->
-			<tr th:each="reservation:${reservationss}">
-				<td th:text="${reservation.id}"></td>
-				<td th:text="${reservation.last}"></td>
-				<td th:text="${reservation.first}"></td>
-				<td th:text="${reservation.sex}"></td>
-				<td th:text="${reservation.dob}"></td>
-				<td th:text="${reservation.dod}"></td>
+			<!-- acts like a for each loop and iterates through all the reservations -->
+			<tr th:each="reservation:${reservations}">
+				<td th:text="${reservation.reservetime}"></td>
+				<td th:text="${reservation.roomno}"></td>
+				<td th:text="${reservation.reservationid}"></td>
+				<td th:text="${reservation.userid}"></td>
+				
 			</tr>
 		</tbody>
 	</table>

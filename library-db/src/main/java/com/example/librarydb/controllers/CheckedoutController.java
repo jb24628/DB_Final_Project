@@ -1,5 +1,6 @@
 package com.example.librarydb.controllers;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.librarydb.models.Books;
 import com.example.librarydb.models.Checkedout;
+import com.example.librarydb.models.Users;
+import com.example.librarydb.services.BooksService;
 import com.example.librarydb.services.CheckedoutService;
+import com.example.librarydb.services.UsersService;
 
 /**
- * handles mappings for checkedouts
+ * handles mappings for checkedout books
  * @author JB
  *
  */
@@ -24,7 +29,10 @@ public class CheckedoutController {
 	 */
 	@Autowired
 	private CheckedoutService checkedoutService;
-	
+	@Autowired
+	private BooksService booksService;
+	@Autowired
+	private UsersService usersService;
 	/**
 	 * Shows 
 	 * @param model what stores what we put on the website
@@ -33,7 +41,23 @@ public class CheckedoutController {
 	@RequestMapping("/getAll")
 	public String getAll(Model model) {
 		List<Checkedout> checkedouts = checkedoutService.getAll();
+		List<Books> books = booksService.getAll();
+		List<Users> users = usersService.getAll();
+		
+		for (int i = 0; i < books.size(); i++) { //makes sure you cannot see a book that is already checked out
+			int tempID = books.get(i).getBookid();
+			for (int j = 0; j < checkedouts.size(); j++) {
+				if (tempID == checkedouts.get(j).getBookid()) {
+					books.remove(i);
+					continue;
+				}
+			}
+		}
+		
 		model.addAttribute("checkedouts", checkedouts);
+		model.addAttribute("curDate", new Date(System.currentTimeMillis()) );
+		model.addAttribute("books", books);
+		model.addAttribute("users", users);
 		return "checkedouts";
 	}
 	

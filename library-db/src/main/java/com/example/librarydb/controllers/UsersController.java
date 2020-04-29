@@ -33,7 +33,17 @@ public class UsersController {
 	@RequestMapping("/getAll")
 	public String getAll(Model model) {
 		List<Users> users = usersService.getAll();
+		
+		int maxID = users.get(0).getId();
+		
+		for (int i = 1; i < users.size(); i++) {
+			if (maxID < users.get(i).getId()) {
+				maxID = users.get(i).getId();
+			}
+		}
+		
 		model.addAttribute("users", users);
+		model.addAttribute("newID", maxID+1);
 		return "users";
 	}
 	

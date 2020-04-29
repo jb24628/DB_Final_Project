@@ -11,19 +11,28 @@ public class Reservations {
 	Integer roomno;
 	@Id
 	Integer reservationid;
+	Integer userid;
 	
 	public Reservations() {
 		super();
 	}
 
 
-	public Reservations(Timestamp reservetime, Integer roomno, Integer reservationid) {
+	public Reservations(Timestamp reservetime, Integer roomno, Integer reservationid, Integer userid) {
 		super();
 		this.reservetime = reservetime;
 		this.roomno = roomno;
 		this.reservationid = reservationid;
+		this.userid = userid;
 	}
 
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
 	public Timestamp getReservetime() {
 		return reservetime;

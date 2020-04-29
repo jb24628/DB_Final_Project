@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/header :: header"></head>
+<head>
+<title>Search for Books</title>
+</head>
+
+<body>
+
+	<!-- (Source code only read): adds the navagation menu bar -->
+	<div th:replace="fragments/top-nav ::  navbar">	</div>
+
+
+<h2 style="text-align: center;">User Search</h2>
+
+<div style="width=60%; margin: auto auto;">
+	<form action="#" th:action="@{/usersearch/search}" method="GET">
+		<div class="form-group row" style="max-width: 100%;  margin: auto auto 0.75rem auto; padding-right: 10px; padding-left: 10px;">
+		
+			<select name="selectedField" class="form-control form-control" style="max-width: 15%; margin: auto auto;">
+				<option value="id" th:selected="${selected[0]}">ID</option>
+				<option value="lname" th:selected="${selected[1]}">Last Name</option>
+				<option value="fname" th:selected="${selected[2]}">First Name</option>
+				<option value="sex" th:selected="${selected[3]}">Sex</option>
+				<option value="address" th:selected="${selected[4]}">Address</option>
+			</select>
+		
+		
+			<input type="text" name="searchTerm" th:value="${searchTerm}" class="form-control" placeholder="Key word" style="max-width: 60%; margin: auto auto;">
+		
+			<button type="submit" class="btn btn-dark" style="margin: auto auto;">Search</button>
+		</div>
+	</form>
+</div>
+
+<font color="red"><h1 th:text="${error_msg}" style="text-align: center;"></h1></font>
+
+<div style="padding-top: 40px;">
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Last</th>
+				<th scope="col">First</th>
+				<th scope="col">Sex</th>
+				<th scope="col">Address</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- acts like a for each loop and iterates through all the users -->
+			<tr th:each="user:${users}">
+				<td th:text="${user.id}"></td>
+				<td th:text="${user.lname}"></td>
+				<td th:text="${user.fname}"></td>
+				<td th:text="${user.sex}"></td>
+				<td th:text="${user.address}"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+</html>
