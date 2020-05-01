@@ -1,5 +1,6 @@
 package com.example.librarydb.services;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,17 @@ public class UsersService {
 	
 	public void addNew(Users users) {
 		usersRepository.save(users);
+	}
+	
+	public void update(Users users) {
+		usersRepository.save(users);
+	}
+	
+	public Optional<Users> getOne(Integer userid) {
+		return usersRepository.findById(userid);
+	}
+	
+	public void delete(Integer userid) {
+		usersRepository.deleteById(userid);
 	}
 }

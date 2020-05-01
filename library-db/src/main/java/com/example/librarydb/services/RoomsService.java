@@ -1,5 +1,6 @@
 package com.example.librarydb.services;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,9 @@ public class RoomsService {
 	
 	public void addNew(Rooms rooms) {
 		roomsRepository.save(rooms);
+	}
+	
+	public Optional<Rooms> getOne(Integer roomid) {
+		return roomsRepository.findById(roomid);
 	}
 }

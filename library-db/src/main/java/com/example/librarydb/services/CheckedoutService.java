@@ -24,4 +24,8 @@ public class CheckedoutService {
 	public void addNew(Checkedout checkedout) {
 		checkedoutRepository.save(checkedout);
 	}
+	
+	public void delete(Integer bookid) {
+		checkedoutRepository.deleteById(bookid);
+	}
 }

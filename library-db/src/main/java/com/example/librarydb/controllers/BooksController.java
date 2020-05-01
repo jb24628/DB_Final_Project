@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.librarydb.models.Books;
 import com.example.librarydb.services.BooksService;
+import com.example.librarydb.services.CheckedoutService;
 
 /**
  * handles mappings for bookss
@@ -27,6 +28,8 @@ public class BooksController {
 	 */
 	@Autowired
 	private BooksService booksService;
+	@Autowired
+	private CheckedoutService checkedoutService;
 	
 	/**
 	 * Shows 
@@ -76,7 +79,9 @@ public class BooksController {
 	
 	@RequestMapping(value="/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delete(Integer bookid) {
+		checkedoutService.delete(bookid);
 		booksService.delete(bookid);
+		
 		return "redirect:/books/getAll";
 	}
 }

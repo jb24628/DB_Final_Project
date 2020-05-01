@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.librarydb.models.Books;
 import com.example.librarydb.models.Checkedout;
@@ -47,7 +48,7 @@ public class CheckedoutController {
 		for (int i = 0; i < books.size(); i++) { //makes sure you cannot see a book that is already checked out
 			int tempID = books.get(i).getBookid();
 			for (int j = 0; j < checkedouts.size(); j++) {
-				if (tempID == checkedouts.get(j).getBookid()) {
+				if (tempID == (int) checkedouts.get(j).getBookid()) {
 					books.remove(i);
 					continue;
 				}
@@ -71,4 +72,12 @@ public class CheckedoutController {
 		checkedoutService.addNew(checkedout); //adds checkedout to checkedout table
 		return "redirect:/checkedouts/getAll"; //redirects back to all the reults
 	}
+	
+	@RequestMapping(value="/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+	public String delete(Integer bookid) {
+		checkedoutService.delete(bookid);
+
+		return "redirect:/checkedouts/getAll";
+	}
+	
 }
